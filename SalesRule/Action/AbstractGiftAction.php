@@ -29,6 +29,7 @@ abstract class AbstractGiftAction implements Discount\DiscountInterface
 
     const ITEM_OPTION_UNIQUE_ID = 'freeproduct_gift_unique_id';
     const RULE_DATA_KEY_SKU = 'gift_sku';
+    const RULE_DATA_KEY_QTY = 'gift_qty';
     const PRODUCT_TYPE_FREEPRODUCT = 'freeproduct_gift';
     const APPLIED_FREEPRODUCT_RULE_IDS = '_freeproduct_applied_rules';
     /**
@@ -116,7 +117,13 @@ abstract class AbstractGiftAction implements Discount\DiscountInterface
             $this->addAppliedRuleId($stateObject, $rule);
         }
 
-        return $this->getDiscountData($item);
+        $discountData = $this->discountDataFactory->create();
+        $discountData->setAmount($qty * $rule->getDiscountAmount());
+        $discountData->setBaseAmount($qty * $rule->getDiscountAmount());
+        $discountData->setOriginalAmount($rule->getDiscountAmount());
+        $discountData->setBaseOriginalAmount($rule->getDiscountAmount());
+
+        return $discountData;
     }
 
     /**

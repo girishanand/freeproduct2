@@ -29,6 +29,6 @@ class GiftAction extends AbstractGiftAction
      */
     protected function getGiftQty(Quote\Item $item, Rule $rule, $qty): float
     {
-        return $rule->getDiscountAmount();
+        return $rule->getGiftQty() ?: 1;
     }
 }

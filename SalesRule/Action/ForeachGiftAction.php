@@ -32,6 +32,6 @@ class ForeachGiftAction extends AbstractGiftAction
      */
     protected function getGiftQty(Quote\Item $item, Rule $rule, $qty): float
     {
-        return $rule->getDiscountAmount() * $qty;
+        return $rule->getGiftQty() ?: 1;
     }
 }
